@@ -1,5 +1,6 @@
 package com.example.primeiroteste.pkgVendas;
 
+import static com.example.primeiroteste.R.layout.activity_itens_venda;
 import static com.example.primeiroteste.R.layout.item_lista_estoque;
 import static com.example.primeiroteste.R.layout.item_lista_itemvenda;
 
@@ -46,7 +47,7 @@ public class ItensVendas extends AppCompatActivity {
                     for(DataSnapshot snapshotObj: snapshot.getChildren()){
                         Produto produto = snapshotObj.getValue(Produto.class);
                         produtoList.add(produto);
-                        adapterProduto = new ListAdapterVendas(ItensVendas.this, item_lista_itemvenda, produtoList);
+                        adapterProduto = new ListAdapterVendas(ItensVendas.this, activity_itens_venda, produtoList);
                         lista.setAdapter(adapterProduto);
                     }
                 }catch (Exception e){

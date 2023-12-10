@@ -1,6 +1,7 @@
 package com.example.primeiroteste.pkgVendas;
 
 import static com.example.primeiroteste.R.layout.activity_itens_venda;
+import static com.example.primeiroteste.R.layout.activity_pdv;
 import static com.example.primeiroteste.R.layout.item_lista_estoque;
 import static com.example.primeiroteste.R.layout.item_lista_itemvenda;
 import static com.example.primeiroteste.R.layout.item_lista_para_vendas;
