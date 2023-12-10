@@ -7,21 +7,17 @@ import java.util.List;
 
 public class Carrinho {
 
-    private List<Produto> itens;
-
-    public Carrinho(List<Produto> itens) {
-        this.itens = itens;
-    }
+    private List<Produto> carrinho;
 
     public Carrinho() {
-        this.itens = new ArrayList<>();
+        this.carrinho = new ArrayList<>();
     }
 
-    public List<Produto> getItens() {
-        return itens;
+    public List<Produto> getCarrinho() {
+        return carrinho;
     }
 
-    public void setItens(List<Produto> itens) {
-        this.itens = itens;
+    public void setCarrinho(List<Produto> carrinho) {
+        this.carrinho = carrinho;
     }
 }

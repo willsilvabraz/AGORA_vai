@@ -14,6 +14,9 @@
         android:theme="@style/Theme.PrimeiroTeste"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".pkgVendas.Venda"
             android:exported="false" />
         <activity
@@ -23,7 +26,7 @@
             android:name=".pkgFuncionarios.RH"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".pkgVendas.ItensVendas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

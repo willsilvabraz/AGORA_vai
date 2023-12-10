@@ -99,13 +99,26 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/vendainputPesquisa"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="text"
-            android:textSize="24sp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/vendainputPesquisa"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="text"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/verCarrinho"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Ver Carrinho" />
+        </LinearLayout>
 
 
     </LinearLayout>

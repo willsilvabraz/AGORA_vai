@@ -15,18 +15,23 @@ import androidx.annotation.Nullable;
 
 import com.example.primeiroteste.R;
 import com.example.primeiroteste.pkgEstoque.Produto;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class ListAdapterVendas extends ArrayAdapter<Produto> {
-    private List<Produto> modeloFuncionario;
+    private List<Produto> modeloCarrinho;
     private Context contexto;
+    private Carrinho carrinho = new Carrinho();
+    DatabaseReference referenciaCarrinho = FirebaseDatabase.getInstance().getReference("carrinho");
 
     public ListAdapterVendas(@NonNull Context context, int resource, List<Produto> objects) {
         super(context, resource, objects);
-        this.modeloFuncionario = objects;
+        this.modeloCarrinho = objects;
         this.contexto = context;
     }
 
@@ -36,11 +41,10 @@ public class ListAdapterVendas extends ArrayAdapter<Produto> {
         View view = convertView;
 
         if (view == null) {
-            view = LayoutInflater.from(contexto).inflate(R.layout.item_lista_para_vendas, null);
+            view = LayoutInflater.from(contexto).inflate(R.layout.item_lista_itemvenda, null);
 
         }
-        Produto produto = modeloFuncionario.get(position);
-
+        Produto produto = modeloCarrinho.get(position);
 
         TextView textoNome = view.findViewById(R.id.textoNome);
         textoNome.setText(produto.getNome());
@@ -55,7 +59,7 @@ public class ListAdapterVendas extends ArrayAdapter<Produto> {
         buttonExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                excluirProduto(produto);
+                AddAoCarrinho(produto);
 
             }
         });
@@ -63,17 +67,45 @@ public class ListAdapterVendas extends ArrayAdapter<Produto> {
         return view;
     }
 
-    private void excluirProduto(Produto produto) {
+    private void AddAoCarrinho(Produto produto) {
         try {
-            DatabaseReference funcionarioRef = FirebaseDatabase.getInstance().getReference("Produtos").child(produto.getId());
-            funcionarioRef.removeValue();
+            DatabaseReference carrinhoReference = FirebaseDatabase.getInstance().getReference("carrinho");
 
-            modeloFuncionario.remove(produto);
+            carrinhoReference.orderByChild("nome").equalTo(produto.getNome()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    Produto produtoNoCarrinho = snapshot.getValue(Produto.class);
+                                    int novaQuantidade = produtoNoCarrinho.getQuantidade() + 1;
+                                    snapshot.getRef().child("quantidade").setValue(novaQuantidade);
+                                    Log.d("Resultado", "Quantidade atualizada no carrinho");
+                                    Toast.makeText(contexto, "Produto adicionado ao carrinho", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                DatabaseReference novoProduto = referenciaCarrinho.child(produto.getId());
+                                produto.setQuantidade(1);
+                                novoProduto.setValue(produto);
+                                Log.d("Resultado", "Produto adicionado ao carrinho");
+                                Toast.makeText(contexto, "Produto adicionado ao carrinho", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-            notifyDataSetChanged();
-            Toast.makeText(getContext().getApplicationContext(), "Produto adicionado", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.d("Resultado", "Erro ao verificar o carrinho: " + databaseError.getMessage());
+                        }
+                    });
         } catch (Exception e) {
-            Log.d("Resultado", "Erro ao Adicionar ao Carrionho: " + e);
+            Log.d("Resultado", "Erro ao Adicionar ao Carrinho: " + e.getMessage());
         }
     }
+
+    private void realizarCompra(){
+        DatabaseReference referenciaVendas = FirebaseDatabase.getInstance().getReference("Vendas");
+        String novoId = referenciaVendas.push().getKey();
+        DatabaseReference NovaCompra = referenciaVendas.child(novoId);
+        NovaCompra.setValue(carrinho.getCarrinho());
+    }
+
 }
