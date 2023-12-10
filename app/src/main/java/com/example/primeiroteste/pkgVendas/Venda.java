@@ -30,6 +30,8 @@ public class Venda extends AppCompatActivity {
     private ArrayAdapter<Produto> adapterProduto;
     private EditText inputPesquisa ;
 
+    private Carrinho carrinho = new Carrinho();
+
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Produtos");
 
     @Override
@@ -48,25 +50,13 @@ public class Venda extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("resultado", "encontrou algo");
                 produtoList.clear();
-                try{
-                    Log.d("etapa", "1");
+                try{;
                     for(DataSnapshot snapshotObj: snapshot.getChildren()){
-                    Log.d("etapa", "2");
-                        Log.d("Resultado", "resultado" + snapshotObj.getKey());
-                    Log.d("etapa", "3");
                         Produto produto = snapshotObj.getValue(Produto.class);
-                    Log.d("etapa", "4");
 
-                            produtoList.add(produto);
-                    Log.d("etapa", "5");
-                            adapterProduto = new ListAdapterVendas(Venda.this, item_lista_estoque, produtoList);
-                    Log.d("etapa", "6");
-                            lista.setAdapter(adapterProduto);
-                    Log.d("etapa", "7");
-                            Log.d("Resultado", "ID encontrado" + produto.getId());
-                            Log.d("Resultado", "nome encontrado" + produto.getNome());
-                    Log.d("etapa", "8");
-
+                        produtoList.add(produto);
+                        adapterProduto = new ListAdapterVendas(Venda.this, item_lista_estoque, produtoList);
+                        lista.setAdapter(adapterProduto);
                     }
                 }catch (Exception e){
                     Log.d("Resultado", "resultado " + e);

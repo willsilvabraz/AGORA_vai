@@ -54,22 +54,22 @@ public class ListAdapter extends ArrayAdapter<Funcionario> {
         buttonExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                excluirProduto(funcionario);
+                excluirFuncionario(funcionario);
             }
         });
 
         return view;
     }
 
-    private void excluirProduto(Funcionario funcionario) {
+    private void excluirFuncionario(Funcionario funcionario) {
         try {
-            DatabaseReference funcionarioRef = FirebaseDatabase.getInstance().getReference("Produtos").child(funcionario.getId());
+            DatabaseReference funcionarioRef = FirebaseDatabase.getInstance().getReference("Funcionarios").child(funcionario.getId());
             funcionarioRef.removeValue();
 
             modeloFuncionario.remove(funcionario);
 
             notifyDataSetChanged();
-            Toast.makeText(getContext().getApplicationContext(), "Produto excluído", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext().getApplicationContext(), "Funcionario desligado", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d("Resultado", "Erro ao excluir Funcionario: " + e);
         }

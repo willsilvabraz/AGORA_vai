@@ -31,7 +31,7 @@ import java.util.List;
 public class Listar extends Fragment {
     private ListView lista;
     private List<Funcionario> funcionarioList = new ArrayList<>();
-    private ArrayAdapter<Funcionario> adapterProduto;
+    private ArrayAdapter<Funcionario> adapterFuncionario;
     private DatabaseReference ref;
     private EditText inputPesquisa;
     @Override
@@ -45,20 +45,18 @@ public class Listar extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        listarProdutos();
+                        listarFuncionarios();
                         Log.d("Resultado", "onTextChanged");
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                         Log.d("Resultado", "onChanged");
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
-                        listarProdutos();
+                        listarFuncionarios();
                         Log.d("Resultado", "afterTextChanged");
             }
         });
@@ -73,7 +71,7 @@ public class Listar extends Fragment {
         Log.d("resultado", "Chegoou em listar / inicializarComponentes");
     }
 
-    public void listarProdutos(){
+    public void listarFuncionarios(){
              Log.d("resultado", "Chegoou em listar/ ativouListar ");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -81,25 +79,19 @@ public class Listar extends Fragment {
                 Log.d("resultado", "encontrou algo");
                 funcionarioList.clear();
                 try{
+                    for(DataSnapshot snapshotObj: snapshot.getChildren()){
+                        Log.d("Resultado", "resultado" + snapshotObj.getKey());
+                        Funcionario funcionario = snapshotObj.getValue(Funcionario.class);
 
-                for(DataSnapshot snapshotObj: snapshot.getChildren()){
-
-
-                    Log.d("Resultado", "resultado" + snapshotObj.getKey());
-                    Funcionario funcionario = snapshotObj.getValue(Funcionario.class);
-                    if(funcionario.getNome().contains(inputPesquisa.getText().toString()) ||
-                            inputPesquisa.getText().toString().equals("")
-                    ){
-                        funcionarioList.add(funcionario);
-
-                        adapterProduto = new ListAdapter(getContext(), item_lista_estoque, funcionarioList);
-                        adapterProduto = new ListAdapter(Listar.this.getContext(), item_lista_estoque, funcionarioList);
-
-                        lista.setAdapter(adapterProduto);
-                        Log.d("Resultado", "ID encontrado" + funcionario.getId());
-                        Log.d("Resultado", "nome encontrado" + funcionario.getNome());
+                        if(funcionario.getNome().contains(inputPesquisa.getText().toString()) ||
+                                inputPesquisa.getText().toString().equals("")
+                        ){
+                            funcionarioList.add(funcionario);
+                            adapterFuncionario = new ListAdapter(getContext(), item_lista_estoque, funcionarioList);
+                            adapterFuncionario = new ListAdapter(Listar.this.getContext(), item_lista_estoque, funcionarioList);
+                        }
+                            lista.setAdapter(adapterFuncionario);
                     }
-                }
                 }catch (Exception e){
                     Log.d("Resultado", "resultado " + e);
                 }

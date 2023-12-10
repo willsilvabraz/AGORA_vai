@@ -46,16 +46,17 @@ public class ListAdapterVendas extends ArrayAdapter<Produto> {
         textoNome.setText(produto.getNome());
 
         TextView textoValorVenda = view.findViewById(R.id.textoValor);
-        textoValorVenda.setText("Salario: " + String.valueOf(produto.getValor()) + " R$");
+        textoValorVenda.setText("Valor: " + String.valueOf(produto.getValor()) + " R$");
 
         TextView textoQuantidade = view.findViewById(R.id.textoquantidade);
-        textoQuantidade.setText("Idade: " + String.valueOf(produto.getQuantidade()));
+        textoQuantidade.setText("Quantidade: " + String.valueOf(produto.getQuantidade()));
 
         Button buttonExcluir = view.findViewById(R.id.button);
         buttonExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 excluirProduto(produto);
+
             }
         });
 
@@ -70,9 +71,9 @@ public class ListAdapterVendas extends ArrayAdapter<Produto> {
             modeloFuncionario.remove(produto);
 
             notifyDataSetChanged();
-            Toast.makeText(getContext().getApplicationContext(), "Produto excluído", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext().getApplicationContext(), "Produto adicionado", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Log.d("Resultado", "Erro ao excluir Funcionario: " + e);
+            Log.d("Resultado", "Erro ao Adicionar ao Carrionho: " + e);
         }
     }
 }
