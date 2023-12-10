@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Menu"
+        android:id="@+id/menuTb"
+        android:icon="@drawable/icon_cart"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:title="Procurar"
+        android:id="@+id/procurarMenuTb"
+        app:actionProviderClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/>
+    <item
+        android:title="Inicio"
+        android:id="@+id/iniciotb"
+        app:actionProviderClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+</menu>

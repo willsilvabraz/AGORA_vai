@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".pkgVendas.CartActivity"
     app:cardElevation="3dp">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,18 +18,43 @@
             android:layout_height="61dp"
             android:background="@color/cor1"
             android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:layout_width="237dp"
+            android:layout_height="47dp"
+            android:layout_marginBottom="134dp"
+            android:text="Meu carrinho"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="67dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon_cart"
+            app:layout_constraintStart_toStartOf="@+id/toolbar_cart"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_cart" />
+
         <LinearLayout
             android:id="@+id/linearLayout5"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/background"
             android:orientation="horizontal"
             android:padding="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_cart"
-            tools:layout_editor_absoluteX="1dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_cart">
 
             <ImageView
                 android:layout_width="80dp"
@@ -102,8 +129,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout5" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
-
 

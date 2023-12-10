@@ -14,7 +14,7 @@
         android:theme="@style/Theme.PrimeiroTeste"
         tools:targetApi="31">
         <activity
-            android:name=".pkgVendas.CarActivity"
+            android:name=".pkgVendas.CartActivity"
             android:exported="false" />
         <activity
             android:name=".pkgVendas.Venda"
