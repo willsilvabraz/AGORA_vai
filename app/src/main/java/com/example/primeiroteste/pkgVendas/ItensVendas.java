@@ -30,6 +30,7 @@ public class ItensVendas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_itens_venda);
         lista = findViewById(R.id.itemVendasLista);
         listarProdutos();
